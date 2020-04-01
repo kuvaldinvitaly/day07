@@ -16,58 +16,64 @@ public class MainPage extends BasePage {
     }
 
     /**
-     * Переход на вкладку "Категории"
+     * Вкладка "Категории"
      */
     @FindBy(xpath = "//a[contains(text(),'Категории')]")
     public WebElement btnCategiries;
 
     /**
-     * Переход на вкладку "Пользователи"
+     * Вкладка "Пользователи"
      */
     @FindBy(xpath = "//a[contains(text(),'Пользователи')]")
     public WebElement btnUsers;
 
     /**
-     * Нажимаем на кнопку "поиск по сайту"
+     * Кнопка "поиск по сайту"
      */
     @FindBy(xpath = "//*[@href=\"/search/\"]")
     public WebElement btnSearch;
 
     /**
-     * Нажимаем на поле поиска
+     * Текстовое поле поиска
      */
     @FindBy(xpath = "//*[@class=\"form-control\"]")
     public WebElement searchField;
 
     /**
-     * нажимаем на "Показать полные результаты"
+     * Кнопка "Показать полные результаты"
      */
     @FindBy(xpath = "//*[@class=\"dropdown-search-footer\"]")
     public WebElement btnShowFullSearchResults;
 
     /**
-     * нажимаем кнопку "Регистрация"
+     * Кнопка "Регистрация"
      */
     @FindBy(xpath = "//*[@class=\"btn navbar-btn btn-primary btn-register\"]")
     public WebElement btnRegistration;
 
     /**
-     * нажимаем на поле "Имя пользователя"
+     * Кнопка "Зарегистрировать аккаунт"
      */
     @FindBy (xpath = "//*[@class=\"btn btn-primary\"]")
     public WebElement clickToNameUser;
 
     /**
-     * Нажимаем кнопку отмена
+     * Кнопка отмена
      */
     @FindBy (xpath = "//button[contains(text(),'Отмена')]")
     public WebElement btnCancellation;
 
     /**
-     * Нажимаем на кнопку "Обновить страницу"
+     * Кнопка "Обновить страницу"
      */
     @FindBy (xpath = "//button[contains(text(),'Обновите страницу')]")
     public WebElement btnReloadField;
+
+    /**
+     * Текстовое поле "Пользователь"
+     */
+    @FindBy (id = "id_username")
+    public WebElement usernameTextField;
 
 
 }

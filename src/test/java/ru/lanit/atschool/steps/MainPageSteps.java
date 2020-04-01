@@ -11,6 +11,7 @@ import ru.lanit.atschool.pages.MainPage;
 import ru.lanit.atschool.webdriver.WebDriverManager;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class MainPageSteps {
     private WebDriver driver = WebDriverManager.getDriver();
@@ -50,13 +51,6 @@ public class MainPageSteps {
         System.out.println("Test searchForUserFromPrecondition complited");
     }
 
-    private void checkFieldsZero(String id){
-        WebElement field = driver.findElement(By.id(id));
-        WebElement fieldParrent = field.findElement(By.xpath(".."));
-        String fielsError = fieldParrent.findElement(By.cssSelector("p")).getText();
-        Assert.assertEquals(fielsError, "Это поле обязательно.", "Test registratedZeroField not complited");
-    }
-
     @Тогда("пробуем выполнить регистрацию с пустыми полями")
     public void registratedZeroField() throws InterruptedException {
         mainPage.btnRegistration.click();
@@ -65,6 +59,7 @@ public class MainPageSteps {
             Thread.sleep(1000);
         }
        mainPage.clickToNameUser.click();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WebDriverWait webDriverWait1 = new WebDriverWait(driver, 10);
         webDriverWait1.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("[class=\"help-block errors\"]")));
         checkFieldsZero("id_username");
@@ -73,18 +68,13 @@ public class MainPageSteps {
         System.out.println("Test registratedZeroField complited ");
     }
 
-
-    private void fillFields(String id, String text){
-        WebElement field = driver.findElement(By.id(id));
-        field.sendKeys(text);
-    }
-
-    private void checkFields(String id)  {
+    private void checkFieldsZero(String id){
         WebElement field = driver.findElement(By.id(id));
         WebElement fieldParrent = field.findElement(By.xpath(".."));
         String fielsError = fieldParrent.findElement(By.cssSelector("p")).getText();
-        Assert.assertEquals(fielsError, "Данное имя пользователя недоступно.", "Test registratedExistingUser not complited");
+        Assert.assertEquals(fielsError, "Это поле обязательно.", "Test registratedZeroField not complited");
     }
+
 
     @Тогда("пробуем выполнить регистрацию существующем пользователем")
     public void registratedExistingUser() {
@@ -97,9 +87,21 @@ public class MainPageSteps {
         mainPage.clickToNameUser.click();
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("[class=\"help-block errors\"]")));
-        checkFields("id_username");
+        checkFieldUserName("id_username");
         mainPage.btnCancellation.click();
         System.out.println("Test registratedExistingUser complited");
+    }
+
+    private void fillFields(String id, String text){
+        WebElement field = driver.findElement(By.id(id));
+        field.sendKeys(text);
+    }
+
+    private void checkFieldUserName(String id)  {
+        WebElement field = driver.findElement(By.id(id));
+        WebElement fieldParrent = field.findElement(By.xpath(".."));
+        String fielsError = fieldParrent.findElement(By.cssSelector("p")).getText();
+        Assert.assertEquals(fielsError, "Данное имя пользователя недоступно.", "Test registratedExistingUser not complited");
     }
 
     @И("пробуем зарегестрировать нового пользователя")
